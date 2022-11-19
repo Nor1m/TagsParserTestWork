@@ -9,7 +9,12 @@ class ConsoleHelper
     const ERROR = 'e';
     const SUCCESS = 's';
 
-    static function colorOut($string, $mode = self::INFO)
+    /**
+     * @param $string
+     * @param string $mode
+     * @return void
+     */
+    static function colorOut($string, string $mode = self::INFO)
     {
         switch ($mode) {
             case self::ERROR:
