@@ -16,6 +16,7 @@ while( $line = fgets( $f ) ) {
         try {
             $main = new Main($line);
             print_r($main->handle());
+            ConsoleHelper::colorOut("Укажите ссылку на сайт", ConsoleHelper::INFO);
         } catch (Exception $e) {
             ConsoleHelper::colorOut("Указан неверный url!", ConsoleHelper::ERROR);
         }
