@@ -3,12 +3,12 @@
 use App\Main;
 use App\Utils\ArrayHelper;
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 if( isset($_GET['url']) ) {
     $url = $_GET['url'];
 } else {
-    throw new Exception("Не передан обязательный параметр: url");
+    throw new InvalidArgumentException("Не передан обязательный параметр: url");
 }
 
 try {
@@ -27,5 +27,5 @@ function output($url, $data): string
     $tagsCount = ArrayHelper::getArrayItemsSum($data);
     $result .= "<br>Всего тегов: <b>{$tagsCount}</b>";
 
-    return $result;
+    return strip_tags($result, '<b><br><h3>');
 }
