@@ -22,6 +22,10 @@ class Receiver implements ReceiverInterface
      */
     public function getContent(): string
     {
-        return file_get_contents($this->url);
+        try {
+            return file_get_contents($this->url);
+        } catch (\Exception $e) {
+            return '';
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace App;
 use App\Parsers\Parser;
 use App\Receivers\Receiver;
 use App\Utils\UrlValidator;
-use Exception;
+use InvalidArgumentException;
 
 class Main
 {
@@ -19,7 +19,7 @@ class Main
     private $receiver;
 
     /**
-     * @throws Exception
+     * @param string $url
      */
     public function __construct(string $url)
     {
@@ -48,13 +48,13 @@ class Main
     }
 
     /**
-     * @throws Exception
+     * @return void
      */
     private function validation()
     {
         $validator = new UrlValidator($this->url);
         if (!$validator->validate()) {
-            throw new Exception("Url указан неверно!");
+            throw new InvalidArgumentException("Url указан неверно!");
         }
     }
 }
