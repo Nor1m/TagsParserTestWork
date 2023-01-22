@@ -1,10 +1,10 @@
 <?php
 namespace App\Receivers;
 
-interface ReceiverInterface
+interface Receiver
 {
     /**
      * @return string
      */
-    public function getContent(): string;
+    public function getContent(string $url): string;
 }

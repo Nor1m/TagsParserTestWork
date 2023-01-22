@@ -9,40 +9,34 @@ use InvalidArgumentException;
 
 class Main
 {
-    /**
-     * @var string
-     */
-    private $url;
-    /**
-     * @var Receiver
-     */
-    private $receiver;
 
-    /**
-     * @param string $url
-     */
-    public function __construct(string $url)
-    {
-        $this->url = $this->prepareUrl($url);
-        $this->validation();
-        $this->receiver = new Receiver($this->url);
+    private $receiver;
+    private $parser;
+
+
+    function __constructor(Receiver $receiver, Parser $parser, UrlValidator $validator = null) {
+        $this->receiver = $receiver;
+        $this->parser = $parser;
+        $this->validator = $validator == null ? new UrlValidator() : $validator;
     }
 
     /**
      * @return array
      */
-    public function handle(): array
+    public function handle(string $url): array
     {
-        $content = $this->receiver->getContent();
-        $parser = new Parser($content);
-        return $parser->getData();
+        $url = $this->prepareUrl($url);
+        $this->validation();
+
+        $content = $this->receiver->getContent($url);
+        return $this->parser->getCountValues($content);
     }
 
     /**
      * @param $url
      * @return string
      */
-    private function prepareUrl($url): string
+    protected function prepareUrl($url): string
     {
         return trim($url);
     }
@@ -50,10 +44,11 @@ class Main
     /**
      * @return void
      */
-    private function validation()
+    protected function validation()
     {
-        $validator = new UrlValidator($this->url);
-        if (!$validator->validate()) {
+        $v = $this->validator;
+
+        if (!$v->validate($this->url)) {
             throw new InvalidArgumentException("Url указан неверно!");
         }
     }

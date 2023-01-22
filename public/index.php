@@ -4,6 +4,7 @@ use App\Main;
 use App\Utils\ArrayHelper;
 
 require '../vendor/autoload.php';
+require '../di.php';
 
 if( isset($_GET['url']) ) {
     $url = $_GET['url'];

@@ -4,18 +4,9 @@ namespace App\Utils;
 
 class UrlValidator
 {
-    private $url;
 
-    /**
-     * @param $url
-     */
-    public function __construct($url)
+    public function validate($url): bool
     {
-        $this->url = $url;
-    }
-
-    public function validate(): bool
-    {
-        return (bool) filter_var($this->url, FILTER_VALIDATE_URL);
+        return (bool) filter_var($url, FILTER_VALIDATE_URL);
     }
 }
